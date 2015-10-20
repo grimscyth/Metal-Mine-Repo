@@ -22,7 +22,6 @@ public class UserInterface : MonoBehaviour {
         gold = 0;
         platinum = 0;
         updateMetal();
-
 	}
 	
 	// Update is called once per frame
@@ -36,5 +35,10 @@ public class UserInterface : MonoBehaviour {
         silverImage.GetComponentInChildren<Text>().text = "" + silver;
         goldImage.GetComponentInChildren<Text>().text = "" + gold;
         platinumImage.GetComponentInChildren<Text>().text = "" + platinum;
+    }
+
+    void hireWorker()
+    {
+
     }
 }
