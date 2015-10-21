@@ -45,6 +45,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Digger.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GemCollector.cs" />
+     <Compile Include="Assets\Scripts\Hauler.cs" />
+     <Compile Include="Assets\Scripts\Sifter.cs" />
+     <Compile Include="Assets\Scripts\StructuralEngineer.cs" />
      <Compile Include="Assets\Scripts\UserInterface.cs" />
      <Compile Include="Assets\Scripts\Worker.cs" />
  <Reference Include="UnityEngine.UI">
