@@ -45,8 +45,18 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
      <Compile Include="Assets\Scripts\MineCart.cs" />
+=======
+     <Compile Include="Assets\Scripts\Digger.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\GemCollector.cs" />
+     <Compile Include="Assets\Scripts\Hauler.cs" />
+     <Compile Include="Assets\Scripts\Sifter.cs" />
+     <Compile Include="Assets\Scripts\StructuralEngineer.cs" />
+>>>>>>> refs/remotes/origin/Test-Branch
      <Compile Include="Assets\Scripts\UserInterface.cs" />
+     <Compile Include="Assets\Scripts\Worker.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
