@@ -19,7 +19,7 @@ public class UserInterface : MonoBehaviour
     public GameObject gemCollectorPrefab;
     public GameObject structuralEngineerPrefab;
 
-    private GameObject workerTypeSelect;
+    //private GameObject workerTypeSelect;
 
 	void Start () 
     {
@@ -31,10 +31,11 @@ public class UserInterface : MonoBehaviour
 
         gameController = this.GetComponent<GameController>();
 
-        workerTypeSelect = GameObject.Find("Worker Type Select");
-        workerTypeSelect.SetActive(false);
+        //workerTypeSelect = GameObject.Find("Worker Type Select");
+        //workerTypeSelect.SetActive(false);
 	}
 
+    /*
     public void hireWorker()
     {
         workerTypeSelect.SetActive(true);
@@ -73,6 +74,6 @@ public class UserInterface : MonoBehaviour
         }
 
         workerTypeSelect.SetActive(false);
-    }
+    }*/
 
 }

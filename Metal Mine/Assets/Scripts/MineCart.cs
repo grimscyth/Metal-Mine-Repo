@@ -3,27 +3,37 @@ using System.Collections;
 
 public class MineCart : MonoBehaviour 
 {
-    public bool movingRight;
-    public bool movingLeft;
-    public bool isMoving;
-    public bool isFull;
+    private bool movingRight;
+    private bool movingLeft;
+    private bool isMoving;
+    private bool isFull;
 
-    public GameObject mineCart;
-    public GameObject leftWheel;
-    public GameObject rightWheel;
-    public GameObject[] rocks;
+    private GameObject mineCart;
+    private GameObject leftWheel;
+    private GameObject rightWheel;
+    private GameObject[] rocks;
 
-    public Vector3 right;
-    public Vector3 left;
+    private Vector3 right;
+    private Vector3 left;
 
-    public const int LEFT = 1;
-    public const int RIGHT = 2;
+    private const int LEFT = 1;
+    private const int RIGHT = 2;
 
-    public const float SPEED_EMPTY = 0.5f;
-    public const float SPEED_25 = 0.4f;
-    public const float SPEED_50 = 0.3f;
-    public const float SPEED_75 = 0.2f;
-    public const float SPEED_100 = 0.1f;
+    private const float SPEED_EMPTY = 0.5f;
+    private const float SPEED_25 = 0.4f;
+    private const float SPEED_50 = 0.3f;
+    private const float SPEED_75 = 0.2f;
+    private const float SPEED_100 = 0.1f;
+
+    private const int FILL_EMPTY = 0;
+    private const int FILL_25 = 1;
+    private const int FILL_50 = 2;
+    private const int FILL_75 = 3;
+    private const int FILL_100 = 4;
+
+    private int fillLevel;
+
+    private bool needUpdateFill;
 
 	// Use this for initialization
 	void Start () 
@@ -44,6 +54,12 @@ public class MineCart : MonoBehaviour
         rocks[0] = mineCart.transform.GetChild(2).gameObject;
         rocks[1] = mineCart.transform.GetChild(3).gameObject;
         rocks[2] = mineCart.transform.GetChild(4).gameObject;
+
+        fillLevel = 3;
+
+        needUpdateFill = false;
+
+        updateFillLevel();
 
 	}
 
@@ -103,5 +119,45 @@ public class MineCart : MonoBehaviour
             rightWheel.transform.Rotate(right, 1);
             mineCart.transform.position = new Vector2(mineCart.transform.position.x - SPEED_EMPTY * Time.deltaTime, mineCart.transform.position.y);
         }
+
+        if (needUpdateFill)
+        {
+            updateFillLevel();
+            needUpdateFill = false;
+        }
 	}
+
+    void updateFillLevel()
+    {
+        if (fillLevel == FILL_EMPTY)
+        {
+            rocks[0].gameObject.SetActive(false);
+            rocks[1].gameObject.SetActive(false);
+            rocks[2].gameObject.SetActive(false);
+        }
+        else if (fillLevel == FILL_25)
+        {
+            rocks[0].gameObject.SetActive(false);
+            rocks[1].gameObject.SetActive(false);
+            rocks[2].gameObject.SetActive(false);
+        }
+        else if (fillLevel == FILL_50)
+        {
+            rocks[0].gameObject.SetActive(true);
+            rocks[1].gameObject.SetActive(false);
+            rocks[2].gameObject.SetActive(false);
+        }
+        else if (fillLevel == FILL_75)
+        {
+            rocks[0].gameObject.SetActive(true);
+            rocks[1].gameObject.SetActive(true);
+            rocks[2].gameObject.SetActive(false);
+        }
+        else if (fillLevel == FILL_100)
+        {
+            rocks[0].gameObject.SetActive(true);
+            rocks[1].gameObject.SetActive(true);
+            rocks[2].gameObject.SetActive(true);
+        }
+    }
 }
