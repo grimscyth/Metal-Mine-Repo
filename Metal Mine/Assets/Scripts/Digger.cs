@@ -20,6 +20,10 @@ public class Digger : Worker {
     bool mineCartNearby;
     bool isDigging;
 
+    GameObject digger;
+
+    GameController gameController;
+
 	void Start () 
     {
         name = "Digger";
@@ -32,7 +36,33 @@ public class Digger : Worker {
         digPower = 1;
         
         setTotalDigPower();
+
+        digger = this.gameObject;
+
+        gameController = GameObject.Find("gameController").GetComponent<GameController>();
 	}
+
+    void Update()
+    {
+        if (!isDigging)
+        {
+            digger.transform.localPosition = new Vector3(digger.transform.position.x + Time.deltaTime * 10, digger.transform.position.y, digger.transform.position.z);
+        }
+
+        if (isDigging)
+        {
+            gameController.increaseMetal('g', 1);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Mountain")
+        {
+            isDigging = true;
+            Debug.Log("Collided with mountain");
+        }
+    }
 
     public int getDigSpeed()
     {

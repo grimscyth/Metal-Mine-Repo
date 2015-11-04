@@ -36,9 +36,9 @@ public class GameController : MonoBehaviour {
             gems[i] = 0;
         }
 
-        silver = GameObject.Find("Silver Image").transform.GetChild(0).GetComponent<Text>();
-        gold = GameObject.Find("Gold Image").transform.GetChild(0).GetComponent<Text>();
-        platinum = GameObject.Find("Platinum Image").transform.GetChild(0).GetComponent<Text>();
+        silver = GameObject.Find("imageSilver").transform.GetChild(0).GetComponent<Text>();
+        gold = GameObject.Find("imageGold").transform.GetChild(0).GetComponent<Text>();
+        platinum = GameObject.Find("imagePlatinum").transform.GetChild(0).GetComponent<Text>();
 
         updateUserInterface();
 	}
@@ -92,6 +92,8 @@ public class GameController : MonoBehaviour {
             default:
                 return;
         }
+
+        updateUserInterface();
     }
 
     public void decreaseMetal(char metal, int amount)

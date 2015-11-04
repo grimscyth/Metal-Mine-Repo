@@ -7,73 +7,147 @@ public class UserInterface : MonoBehaviour
 
     private Canvas mainCanvas;
 
-    private Button hireButton;
-    private Button buildButton;
-    private Button marketButton;
-
     private GameController gameController;
+    private GameObject selectionWindowHire;
 
-    public GameObject diggerPrefab;
-    public GameObject haulerPrefab;
-    public GameObject sifterPrefab;
-    public GameObject gemCollectorPrefab;
-    public GameObject structuralEngineerPrefab;
+    private bool selectionWindowHireOpen;
+    private bool selectionWindowHireClosed;
+    private bool selectionWindowHireOpening;
+    private bool selectionWindowHireClosing;
 
-    //private GameObject workerTypeSelect;
+    private const int selectionWindowHireOpenX = 810;
+    private const int selectionWindowHireClosedX = 1110;
+
+    private GameObject prefabDigger;
+    private GameObject prefabHauler;
+    private GameObject prefabSifter;
+    private GameObject prefabGemCollector;
+    private GameObject prefabStructuralEngineer;
 
 	void Start () 
     {
-        mainCanvas = GameObject.Find("Main Game Overlay").GetComponent<Canvas>();
-
-        hireButton = GameObject.Find("Hire Button").GetComponent<Button>();
-        buildButton = GameObject.Find("Build Button").GetComponent<Button>();
-        marketButton = GameObject.Find("Market Button").GetComponent<Button>();
-
         gameController = this.GetComponent<GameController>();
+        mainCanvas = GameObject.Find("canvasMain").GetComponent<Canvas>();
+        selectionWindowHire = GameObject.Find("selectionWindowHire");
 
-        //workerTypeSelect = GameObject.Find("Worker Type Select");
-        //workerTypeSelect.SetActive(false);
+        selectionWindowHireOpen = false;
+        selectionWindowHireClosed = true;
+        selectionWindowHireOpening = false;
+        selectionWindowHireClosing = false;
+
+        prefabDigger = (GameObject)Resources.Load("Prefabs/digger", typeof(GameObject));
+        prefabHauler = (GameObject)Resources.Load("Prefabs/hauler", typeof(GameObject));
+        prefabSifter = (GameObject)Resources.Load("Prefabs/sifter", typeof(GameObject));
+        prefabGemCollector = (GameObject)Resources.Load("Prefabs/gemCollector", typeof(GameObject));
+        prefabStructuralEngineer = (GameObject)Resources.Load("Prefabs/structuralEngineer", typeof(GameObject));
 	}
 
-    /*
+    void Update()
+    {
+        if (selectionWindowHireOpening)
+        {
+            openSelectionWindowHire();
+        }
+        else if (selectionWindowHireClosing)
+        {
+            closeSelectionWindowHire();
+        }
+    }
+    
     public void hireWorker()
     {
-        workerTypeSelect.SetActive(true);
+        if (selectionWindowHireClosed && !selectionWindowHireOpening)
+        {
+            selectionWindowHireOpening = true;
+            selectionWindowHireClosing = false;
+            selectionWindowHireClosed = false;
+        }
+        else if (selectionWindowHireOpen && !selectionWindowHireClosing)
+        {
+            selectionWindowHireClosing = true;
+            selectionWindowHireOpening = false;
+            selectionWindowHireOpen = false;
+        }
+        else if (selectionWindowHireClosing)
+        {
+            selectionWindowHireOpening = true;
+            selectionWindowHireClosing = false;
+        }
+        else if (selectionWindowHireOpening)
+        {
+            selectionWindowHireClosing = true;
+            selectionWindowHireOpening = false;
+        }
     }
 
-
-    public void selectWorker(string type)
+    private void openSelectionWindowHire()
     {
-        GameObject temp;
-
-        switch(type)
+        if (selectionWindowHire.transform.localPosition.x >= selectionWindowHireOpenX)
         {
-            case "d":
-                temp = Instantiate(diggerPrefab) as GameObject;
-                gameController.assignDigger(temp);
-                break;
-            case "h":
-                temp = Instantiate(haulerPrefab) as GameObject;
-                gameController.assignHauler(temp);
-                break;
-            case "s":
-                temp = Instantiate(sifterPrefab) as GameObject;
-                gameController.assignSifter(temp);
-                break;
-            case "g":
-                temp = Instantiate(gemCollectorPrefab) as GameObject;
-                gameController.assignGemCollector(temp);
-                break;
-            case "e":
-                temp = Instantiate(structuralEngineerPrefab) as GameObject;
-                gameController.assignStructuralEngineer(temp);
-                break;
-            default:
-                Debug.Log("Error: Worker type not found!");
-                break;
+            selectionWindowHire.transform.localPosition = new Vector3(selectionWindowHire.transform.localPosition.x - 10,
+                                                                      selectionWindowHire.transform.localPosition.y,
+                                                                      selectionWindowHire.transform.localPosition.z);
         }
 
-        workerTypeSelect.SetActive(false);
-    }*/
+        if (selectionWindowHire.transform.localPosition.x < selectionWindowHireOpenX)
+        {
+            selectionWindowHire.transform.localPosition = new Vector3(selectionWindowHireOpenX,
+                                                                      selectionWindowHire.transform.localPosition.y,
+                                                                      selectionWindowHire.transform.localPosition.z);
+        }
 
+        if (selectionWindowHire.transform.localPosition.x == selectionWindowHireOpenX)
+        {
+            selectionWindowHireOpen = true;
+            selectionWindowHireOpening = false;
+        }
+    }
+
+    private void closeSelectionWindowHire()
+    {
+        if (selectionWindowHire.transform.localPosition.x <= selectionWindowHireClosedX)
+        {
+            selectionWindowHire.transform.localPosition = new Vector3(selectionWindowHire.transform.localPosition.x + 10,
+                                                                      selectionWindowHire.transform.localPosition.y,
+                                                                      selectionWindowHire.transform.localPosition.z);
+        }
+
+        if (selectionWindowHire.transform.localPosition.x > selectionWindowHireClosedX)
+        {
+            selectionWindowHire.transform.localPosition = new Vector3(selectionWindowHireClosedX, 
+                                                                      selectionWindowHire.transform.localPosition.y,
+                                                                      selectionWindowHire.transform.localPosition.z);
+        }
+
+        if (selectionWindowHire.transform.localPosition.x == selectionWindowHireOpenX)
+        {
+            selectionWindowHireClosed = true;
+            selectionWindowHireClosing = false;
+        }
+    }
+
+    public void hireDigger()
+    {
+        Instantiate(prefabDigger);
+    }
+
+    public void hireHauler()
+    {
+        Instantiate(prefabHauler);
+    }
+
+    public void hireSifter()
+    {
+        Instantiate(prefabSifter);
+    }
+
+    public void hireGemCollector()
+    {
+        Instantiate(prefabGemCollector);
+    }
+
+    public void hireStructuralEngineer()
+    {
+        Instantiate(prefabStructuralEngineer);
+    }
 }
